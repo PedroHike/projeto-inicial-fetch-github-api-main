@@ -1,65 +1,39 @@
-import { user } from "./scripts/services/user.js";
+import { getUser } from "./scripts/services/user.js";
+import { getRepositories } from "./scripts/services/repositories.js";
 
-import { repositories } from "./scripts/services/repositories.js";
+import { user } from "./scripts/objects/user.js";
+import { screen } from "./scripts/objects/screen.js";
 
 document.getElementById('btn-search')
 .addEventListener('click', ()=> {
     const userName = document.getElementById('input-search').value
-    if(userName){
-        getUserProfile(userName)
-    }
+    emptyInput(userName)
 })
 
-//adicionando escuta de: quando clicar no enter, enviar informação
 document.getElementById('input-search')
 .addEventListener('keyup', (e)=> {
     const userName = e.target.value
     if(e.key==="Enter"){
-        if(userName){
-            getUserProfile(userName)
-        }
+        emptyInput(userName)
     }
 });
 
-function getUserProfile(userName){
-    
-    user(userName).then((dadosUsuario)=>{
-        
-        
-        document.querySelector('.profile-data').innerHTML =  
-        `<div class="perfil">   
-            <img src="${dadosUsuario.avatar_url}" alt="">
-            <div class="info">
-                <h1 class="nome-usuario">${dadosUsuario.name ?? 'Não possui nome cadastrado 😥'}</h1>
-                <p class="bio">${dadosUsuario.bio ?? 'Não possui bio cadastrada 😥'}</p>
-            </div>
-        </div>`
-        
-    })
-    getUserRepositorie(userName)
-    
+function emptyInput (userName){
+    userName ? getUserData(userName) : alert('Favor preencher o campo!!!')}
+
+async function getUserData(userName){
+    const userResponse = await getUser(userName)
+    console.log(userResponse);
+
+    if (userResponse.message === "Not Found") {
+        screen.rederNotFound()
+        return
+    }
+
+    const repositoriesResponse = await getRepositories(userName)
+
+    user.setInfo(userResponse)
+    user.setRepositories(repositoriesResponse)
+
+    screen.renderUser(user)
 }
-function getUserRepositorie(userName){
-    repositories(userName).then((reposData) => {
-        let repositoriesItens = ""
-        reposData.forEach(repos => {
-            repositoriesItens += 
-            `<li><a href="${repos.html_url}" target="_blank">${repos.name}</a><li>
-                `
-        });
-
-        
-
-        document.querySelector('.profile-data').innerHTML += 
-        `<div class="repositories section">
-            <h2>Repositórios</h2>
-            <ul>
-                ${repositoriesItens}
-            </ul>
-        </div>
-        `;
-    })
-
-}
-
-
