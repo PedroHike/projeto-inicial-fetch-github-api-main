@@ -85,6 +85,13 @@ main {
   border-color: #ffffff;
 }
 
+.container .profile-data .perfil{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 50px;
+}
+
 .container .profile-data img{
   width: 50%;
   border-radius: 50%;

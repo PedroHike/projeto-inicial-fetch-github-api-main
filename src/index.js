@@ -1,3 +1,7 @@
+import { user } from "./scripts/services/user.js";
+
+import { repositories } from "./scripts/services/repositories.js";
+
 document.getElementById('btn-search')
 .addEventListener('click', ()=> {
     const userName = document.getElementById('input-search').value
@@ -17,33 +21,26 @@ document.getElementById('input-search')
     }
 });
 
-
-async function user(userName){
-    const response = await fetch(`https://api.github.com/users/${userName}`);
-    return await response.json();
-}
-
-async function repositorios(userName){
-    const response = await fetch(`https://api.github.com/users/${userName}/repos`);
-    return await response.json();
-}
-
 function getUserProfile(userName){
     
     user(userName).then((dadosUsuario)=>{
         
         
-        document.querySelector('.profile-data').innerHTML =  `<img src="${dadosUsuario.avatar_url}" alt="">
-        <div class="info">
-            <h1 class="nome-usuario">${dadosUsuario.name ?? 'Não possui nome cadastrado 😥'}</h1>
-            <p class="bio">${dadosUsuario.bio ?? 'Não possui bio cadastrada 😥'}</p>
+        document.querySelector('.profile-data').innerHTML =  
+        `<div class="perfil">   
+            <img src="${dadosUsuario.avatar_url}" alt="">
+            <div class="info">
+                <h1 class="nome-usuario">${dadosUsuario.name ?? 'Não possui nome cadastrado 😥'}</h1>
+                <p class="bio">${dadosUsuario.bio ?? 'Não possui bio cadastrada 😥'}</p>
+            </div>
         </div>`
         
     })
+    getUserRepositorie(userName)
     
 }
 function getUserRepositorie(userName){
-    repositorios(userName).then((reposData) => {
+    repositories(userName).then((reposData) => {
         let repositoriesItens = ""
         reposData.forEach(repos => {
             repositoriesItens += 
@@ -65,6 +62,4 @@ function getUserRepositorie(userName){
 
 }
 
-getUserProfile('pedrohike')
-getUserRepositorie('pedrohike')
 
