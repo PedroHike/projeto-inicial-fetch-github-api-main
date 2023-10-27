@@ -23,17 +23,18 @@ function emptyInput (userName){
 
 async function getUserData(userName){
     const userResponse = await getUser(userName)
-    console.log(userResponse);
-
+    
     if (userResponse.message === "Not Found") {
         screen.rederNotFound()
         return
     }
-
+    
     const repositoriesResponse = await getRepositories(userName)
-
+    
     user.setInfo(userResponse)
     user.setRepositories(repositoriesResponse)
-
+    
     screen.renderUser(user)
 }
+
+getUserData('pedrohike')

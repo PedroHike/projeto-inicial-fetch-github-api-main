@@ -8,6 +8,17 @@ const screen = {
             <img src="${user.avatarUrl}" alt="">
             <div class="info">
                 <h1 class="nome-usuario">${user.name ?? 'Não possui nome cadastrado 😥'}</h1>
+                <p class="user-name">( ${user.userName} )</p>
+                <div class="follow">
+                    <div class="followers">
+                        <h3 class="">Seguidores</h3>
+                        <p>${user.followers}</p>
+                    </div>
+                    <div class="following">
+                        <h3 class="">Seguindo</h3>
+                        <p>${user.following}</p>
+                    </div>
+                </div>
                 <p class="bio">${user.bio ?? 'Não possui bio cadastrada 😥'}</p>
             </div>
         </div>`
