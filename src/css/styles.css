@@ -148,18 +148,49 @@ main {
   justify-content: center;
 }
 
-.container .profile-data .repositories ul li a{
-  padding: 20px;
+.container .profile-data .repositories ul li{
   border: 1px solid grey;  
+  border-radius: 7px;
+  padding: 20px;
   margin: 20px;
   display: block;
-  border-radius: 7px;
   transition: 0.3s ease-in-out;
 }
 
-.container .profile-data .repositories ul li a:hover{
+.container .profile-data .repositories ul li:hover{
   background-color:hotpink;
   color: #fff
+}
+
+.container .profile-data .repositories ul li .interacao{
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.container .profile-data .repositories ul li .interacao div{
+  background-color: #6A5ACE;
+  padding: 7px;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.container .profile-data .events{
+  padding-top: 0;
+}
+
+.container .profile-data .events h2{
+  margin-bottom: 25px;
+}
+
+.container .profile-data .events p{
+  padding: 10px;
+  font-size: 13px;
+}
+
+.container .profile-data .events strong{
+  font-weight: 600;
+  margin-right: 15px;
 }
 
 .container .profile-data.hide{

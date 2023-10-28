@@ -1,3 +1,4 @@
+
 const screen = {
     userProfile: document.querySelector('.profile-data'),
 
@@ -26,11 +27,18 @@ const screen = {
         let repositoriesItens = "";
     
         user.repositories.forEach(repos => {
-    
+        
             repositoriesItens += 
             `<li>
-                <a href="${repos.html_url}" target="_blank">${repos.name}</a>
-            <li>`
+                <a href="${repos.url}" target="_blank">${repos.name}</a>
+                <div class="interacao">
+                    <div>🍴 ${repos.forks}</div>
+                    <div>⭐ ${repos.stars}</div>
+                    <div>👀 ${repos.watchers}</div>
+                    <div>👩‍💻 ${repos.language}</div>
+                </div>
+                
+            </li>`
         });
 
         if(repositoriesItens.length > 0){
@@ -39,6 +47,25 @@ const screen = {
                 <h2>Repositórios</h2>
                 <ul>
                     ${repositoriesItens}
+                </ul>
+            </div>`;
+        }
+
+        let eventList = ''
+
+        user.events.forEach((commit)=>{
+            eventList +=
+            `<li>
+                <p><strong>${commit.name}</strong> - ${commit.commit}</p>
+            </li>`
+        })
+
+        if(eventList.length > 0){
+            this.userProfile.innerHTML += 
+            `<div class="events section">
+                <h2>Eventos</h2>
+                <ul>
+                    ${eventList}
                 </ul>
             </div>`;
         }

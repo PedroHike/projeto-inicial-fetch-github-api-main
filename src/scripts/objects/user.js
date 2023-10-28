@@ -3,19 +3,24 @@ let user = {
     name: '',
     userName: '',
     bio: '',
-    repositories: [],
     followers:'',
     following:'',
-    setInfo(gitHubUser){
-        this.avatarUrl = gitHubUser.avatar_url
-        this.name = gitHubUser.name
-        this.bio = gitHubUser.bio
-        this.userName = gitHubUser.login
-        this.followers = gitHubUser.followers
-        this.following = gitHubUser.following
+    repositories: [],
+    events:[],
+
+    setInfo(response){
+        this.avatarUrl = response.avatar_url
+        this.name = response.name
+        this.userName = response.login
+        this.followers = response.followers
+        this.following = response.following
+        this.bio = response.bio
     },
-    setRepositories(gitHubRepositories){
-        this.repositories = gitHubRepositories
+    setRepositories(response){
+        this.repositories = response
+    },
+    setEvents(response){
+        this.events = response
     }
 }
 
